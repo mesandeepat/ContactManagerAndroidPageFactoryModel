@@ -1,11 +1,6 @@
 package tests;
 
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import pages.ContactManagerMenu;
@@ -15,40 +10,40 @@ import pages.Suggestions;
 
 public class TestSample extends BaseClass {
 
-	@BeforeSuite(alwaysRun = true)
-	public void configureDevices() throws Exception {
-		configureExtentReport();
-	}
-	
-	@BeforeMethod
-   public void launchApp() {
-		launchApp();
-	}
+//	@BeforeSuite(alwaysRun = true)
+//	public void configureDevices() throws Exception {
+//		configureExtentReport();
+//	}
+//	
+//	@BeforeMethod
+//   public void launchApp() {
+//		launchApp();
+	//}
 	
 	@Test
 	public void Test_EnteringContactDetails() {
 
-		startReport("Verify Login Succesfull");
-		
-		printOnReport("Logged in Succesfully");
-//		// creates a toggle for the given test, adds all log events under it    
+//		startReport("Verify Login Succesfull");
+//		
+//		printOnReport("Logged in Succesfully");
+		// creates a toggle for the given test, adds all log events under it    
 //		ExtentTest testOne = extent.createTest("TestOne", "EnteringContactDetails");
 //
 //		testOne.log(Status.INFO, "Test One started");
-//
-//		//ContactManagerMenu ContactManager = new ContactManagerMenu();
-//		//ContactManager.clickContactBackupRestoreTab();
-//		testOne.log(Status.PASS, "Clicked ContactBackupRestore tab");
-//
-//		//ContactManager.clickBackUpContacts();
-//		testOne.log(Status.PASS, "Clicked BackupContacts button");
-//
-////		String actualTxt = ContactManager.validateBackUpCompletedMessage();
-////		String expectedTxt = "Backup Completed";
-////		Assert.assertEquals(actualTxt, expectedTxt);
-////		System.out.println("actualmsg" + actualTxt + "\n" + "expectedmsg" + expectedTxt);
-////
-////		ContactManager.clickOKButton();
+
+		ContactManagerMenu ContactManager = new ContactManagerMenu();
+		ContactManager.clickContactBackupRestoreTab();
+		//testOne.log(Status.PASS, "Clicked ContactBackupRestore tab");
+
+		ContactManager.clickBackUpContacts();
+		//testOne.log(Status.PASS, "Clicked BackupContacts button");
+
+		String actualTxt = ContactManager.validateBackUpCompletedMessage();
+		String expectedTxt = "Backup Completed";
+		Assert.assertEquals(actualTxt, expectedTxt);
+		System.out.println("actualmsg" + actualTxt + "\n" + "expectedmsg" + expectedTxt);
+
+		ContactManager.clickOKButton();
 //		testOne.log(Status.PASS, "Clicked OK button");
 //		
 //		testOne.log(Status.INFO, "Test is completed");
@@ -129,14 +124,14 @@ public class TestSample extends BaseClass {
 
 	}
 
-	@AfterMethod(alwaysRun = true)
-	public void afterMethod(ITestResult result) {
-		endExtentReport(result, driver);
+//	@AfterMethod(alwaysRun = true)
+//	public void afterMethod(ITestResult result) {
+//		endExtentReport(result, driver);
+//	}
+//
+//	@AfterSuite(alwaysRun = true)
+//	public void afterSuite() {
+//		eReport.close();
+
 	}
 
-	@AfterSuite(alwaysRun = true)
-	public void afterSuite() {
-		eReport.close();
-
-	}
-}

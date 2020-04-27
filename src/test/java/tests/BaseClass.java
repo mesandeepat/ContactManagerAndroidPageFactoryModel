@@ -1,38 +1,32 @@
 package tests;
 
-import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
-import org.testng.Reporter;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
-import Reporting.ExtentReportManager;
-import Reporting.ManageReport;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-public class BaseClass extends ManageReport {
-	protected static ExtentTest eTest;
-	protected static ExtentReports eReport;
-	public static String dateStr;
+public class BaseClass {
+//	protected static ExtentTest eTest;
+//	protected static ExtentReports eReport;
+//	public static String dateStr;
 
-	public static AppiumDriver driver;
+	public static AppiumDriver<MobileElement> driver;
+//
+	 public BaseClass() {
+		 PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+	 }
 
-//	 public BaseClass() {
-//		 PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-//	 }
-
-	// @BeforeTest
+	@BeforeTest
 	public void launchApp() {
 		try {
 			DesiredCapabilities caps = new DesiredCapabilities();
@@ -48,8 +42,8 @@ public class BaseClass extends ManageReport {
 			// Appium server details
 			URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
-			driver = new AppiumDriver(url, caps);
-			String sessionId = driver.getSessionId().toString();
+			driver = new AppiumDriver<MobileElement>(url, caps);
+			//String sessionId = driver.getSessionId().toString();
 
 		} catch (Exception exp) {
 			System.out.println("Cause is : " + exp.getCause());
@@ -85,48 +79,48 @@ public class BaseClass extends ManageReport {
 		return e.getAttribute(attribute);
 	}
 
-	public void configureExtentReport() throws IOException {
-		System.out.println("In Before Suite");
-		cleanReports();
-		createReportDirectories();
-		SimpleDateFormat df = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
-		dateStr = df.format(new java.util.Date());
-		System.out.println(System.getProperty("user.dir") + "\\reports\\TestReport.html");
-		final String filePath = System.getProperty("user.dir") + "\\reports\\TestReport.html";
-		eReport = ExtentReportManager.getReporter(filePath);
-		System.out.println("Exiting Before Suite");
-	}
-
-	public void endExtentReport(ITestResult result, AppiumDriver driver) {
-		eReport.endTest(eTest);
-		if (result.getStatus() == ITestResult.FAILURE) {
-			// String screenshotPath = CaptureScreenshot.get(result.getName(), driver,
-			// dateStr);
-			// System.out.println("screenshotPath.................." + screenshotPath);
-			eTest.log(LogStatus.FAIL, result.getThrowable());
-		} else if (result.getStatus() == ITestResult.SKIP) {
-			eTest.log(LogStatus.SKIP, "Test skipped " + result.getThrowable());
-		} else {
-			eTest.log(LogStatus.PASS, "Test passed");
-		}
-		eReport.endTest(eTest);
-		eReport.flush();
-	}
-
-	public void startReport(String scenarioName) {
-		eTest = eReport.startTest(scenarioName);
-	}
-
-	public void printOnReport(String messageToPrint) {
-		System.out.println(messageToPrint);
-		eTest.log(LogStatus.PASS, messageToPrint);
-		Reporter.log(messageToPrint);
-	}
-
-	// @AfterTest
-//	public void teardown() {
-//		driver.close();
-//		driver.quit();
+//	public void configureExtentReport() throws IOException {
+//		System.out.println("In Before Suite");
+//		cleanReports();
+//		createReportDirectories();
+//		SimpleDateFormat df = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+//		dateStr = df.format(new java.util.Date());
+//		System.out.println(System.getProperty("user.dir") + "\\reports\\TestReport.html");
+//		final String filePath = System.getProperty("user.dir") + "\\reports\\TestReport.html";
+//		eReport = ExtentReportManager.getReporter(filePath);
+//		System.out.println("Exiting Before Suite");
 //	}
+//
+//	public void endExtentReport(ITestResult result, AppiumDriver driver) {
+//		eReport.endTest(eTest);
+//		if (result.getStatus() == ITestResult.FAILURE) {
+//			// String screenshotPath = CaptureScreenshot.get(result.getName(), driver,
+//			// dateStr);
+//			// System.out.println("screenshotPath.................." + screenshotPath);
+//			eTest.log(LogStatus.FAIL, result.getThrowable());
+//		} else if (result.getStatus() == ITestResult.SKIP) {
+//			eTest.log(LogStatus.SKIP, "Test skipped " + result.getThrowable());
+//		} else {
+//			eTest.log(LogStatus.PASS, "Test passed");
+//		}
+//		eReport.endTest(eTest);
+//		eReport.flush();
+//	}
+//
+//	public void startReport(String scenarioName) {
+//		eTest = eReport.startTest(scenarioName);
+//	}
+//
+//	public void printOnReport(String messageToPrint) {
+//		System.out.println(messageToPrint);
+//		eTest.log(LogStatus.PASS, messageToPrint);
+//		Reporter.log(messageToPrint);
+//	}
+
+	@AfterTest
+	public void teardown() {
+		driver.close();
+		driver.quit();
+	}
 
 }
