@@ -9,34 +9,14 @@ import pages.SetAPassword;
 import pages.Suggestions;
 
 public class TestSample extends BaseClass {
-
-//	@BeforeSuite(alwaysRun = true)
-//	public void configureDevices() throws Exception {
-//		configureExtentReport();
-//	}
-//	
-//	@BeforeMethod
-//   public void launchApp() {
-//		launchApp();
-	//}
 	
 	@Test
 	public void Test_EnteringContactDetails() {
 
-//		startReport("Verify Login Succesfull");
-//		
-//		printOnReport("Logged in Succesfully");
-		// creates a toggle for the given test, adds all log events under it    
-//		ExtentTest testOne = extent.createTest("TestOne", "EnteringContactDetails");
-//
-//		testOne.log(Status.INFO, "Test One started");
-
 		ContactManagerMenu ContactManager = new ContactManagerMenu();
 		ContactManager.clickContactBackupRestoreTab();
-		//testOne.log(Status.PASS, "Clicked ContactBackupRestore tab");
-
+		
 		ContactManager.clickBackUpContacts();
-		//testOne.log(Status.PASS, "Clicked BackupContacts button");
 
 		String actualTxt = ContactManager.validateBackUpCompletedMessage();
 		String expectedTxt = "Backup Completed";
@@ -44,9 +24,6 @@ public class TestSample extends BaseClass {
 		System.out.println("actualmsg" + actualTxt + "\n" + "expectedmsg" + expectedTxt);
 
 		ContactManager.clickOKButton();
-//		testOne.log(Status.PASS, "Clicked OK button");
-//		
-//		testOne.log(Status.INFO, "Test is completed");
 	}
 
 	public void Test_SetPassword() {
@@ -123,15 +100,6 @@ public class TestSample extends BaseClass {
 		Assert.assertEquals(actualtitle, expectedtitle);
 
 	}
-
-//	@AfterMethod(alwaysRun = true)
-//	public void afterMethod(ITestResult result) {
-//		endExtentReport(result, driver);
-//	}
-//
-//	@AfterSuite(alwaysRun = true)
-//	public void afterSuite() {
-//		eReport.close();
 
 	}
 

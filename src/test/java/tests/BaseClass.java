@@ -21,8 +21,8 @@ public class BaseClass {
 
 	public static AppiumDriver<MobileElement> driver;
 	String app = "C:\\Users\\sandeep.kumar\\workspace\\AppiumAndroidProject\\src\\test\\resources\\Builds\\Contact Manager_v10102015.08_apkpure.com.apk";
-//
-	 public BaseClass() {
+	 
+	public BaseClass() {
 		 PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	 }
 
@@ -43,7 +43,6 @@ public class BaseClass {
 			URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
 			driver = new AppiumDriver<MobileElement>(url, caps);
-			//String sessionId = driver.getSessionId().toString();
 
 		} catch (Exception exp) {
 			System.out.println("Cause is : " + exp.getCause());
