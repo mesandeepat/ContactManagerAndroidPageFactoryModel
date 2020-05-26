@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -21,6 +20,7 @@ public class BaseClass {
 //	public static String dateStr;
 
 	public static AppiumDriver<MobileElement> driver;
+	String app = "C:\\Users\\sandeep.kumar\\workspace\\AppiumAndroidProject\\src\\test\\resources\\Builds\\Contact Manager_v10102015.08_apkpure.com.apk";
 //
 	 public BaseClass() {
 		 PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -35,7 +35,7 @@ public class BaseClass {
 			caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Realme U1");
 			caps.setCapability(MobileCapabilityType.UDID, "OJ7TRCZSFELRDUOF");
 			caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
-			// caps.setCapability(MobileCapabilityType.APP, "");
+			caps.setCapability(MobileCapabilityType.APP, app);
 			caps.setCapability("appPackage", "in.smartappcart.contactmanager");
 			caps.setCapability("appActivity", "in.smartappcart.contactmanager.Sactivity");
 
